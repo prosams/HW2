@@ -63,7 +63,14 @@ def artistformfunc():
 
 @app.route('/artistinfo')
 def infofunc():
-    return render_template('artist_info.html')
+    baseurl = "https://itunes.apple.com/search?"
+
+    artist = request.args.get('artist',"")
+    pdict = {'term': artist, 'entity' : 'musicTrack'}
+    jsonf = requests.get(baseurl, params = pdict)
+    loaded = json.loads(jsonf.text)['results']
+    #print(loaded)
+    return render_template('artist_info.html', objects=loaded)
 
 @app.route('/artistlinks')
 def linksfunc():
@@ -71,7 +78,14 @@ def linksfunc():
 
 @app.route('/specific/song/<artist_name>')
 def specificsongfunc(artist_name):
-    return render_template('specific_artist.html')
+    baseurl = "https://itunes.apple.com/search?"
+    pdict = {'term': artist_name, 'entity' : 'musicTrack'}
+    req = requests.get(baseurl, params=pdict)
+    results = json.loads(req.text)
+    final = results['results']
+    # print(results)
+    # print(final)
+    return render_template('specific_artist.html', results=final)
 
 
 
