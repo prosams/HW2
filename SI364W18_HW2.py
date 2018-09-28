@@ -8,6 +8,10 @@
 
 ## As part of the homework, you may also need to add templates (new .html files) to the templates directory.
 
+
+
+
+
 #############################
 ##### IMPORT STATEMENTS #####
 #############################
@@ -15,6 +19,8 @@ from flask import Flask, request, render_template, url_for
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, RadioField, ValidationError
 from wtforms.validators import Required
+import requests
+import json
 
 #####################
 ##### APP SETUP #####
@@ -34,14 +40,33 @@ app.config['SECRET_KEY'] = 'hardtoguessstring'
 ###### ROUTES ######
 ####################
 
+## Edit the `SI364_HW3.py` file inside the `HW3Part1` directory to add routes to
+## the basic Flask application that will match the **provided** templates in the
+## `templates` subdirectory inside the `HW3Part1` folder.
+#
+# * `http://localhost:5000/artistform` -> `artistform.html`
+# * `http://localhost:5000/artistinfo` -> `artist_info.html`
+# * `http://localhost:5000/artistlinks` -> `artist_links.html`
+# * `http://localhost:5000/specific/song/<artist_name>` -> `specific_artist.html`
+
 @app.route('/')
 def hello_world():
     return 'Hello World!'
 
-
 @app.route('/user/<name>')
 def hello_user(name):
     return '<h1>Hello {0}<h1>'.format(name)
+
+@app.route('/artistform')
+
+@app.route('/artistinfo')
+
+@app.route('/artistlinks')
+
+@app.route('/specific/song/<artist_name>')
+
+
+
 
 
 if __name__ == '__main__':
