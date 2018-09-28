@@ -58,12 +58,20 @@ def hello_user(name):
     return '<h1>Hello {0}<h1>'.format(name)
 
 @app.route('/artistform')
+def artistformfunc():
+    return render_template('artistform.html')
 
 @app.route('/artistinfo')
+def infofunc():
+    return render_template('artist_info.html')
 
 @app.route('/artistlinks')
+def linksfunc():
+    return render_template('artist_links.html')
 
 @app.route('/specific/song/<artist_name>')
+def specificsongfunc(artist_name):
+    return render_template('specific_artist.html')
 
 
 
