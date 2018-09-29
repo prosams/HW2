@@ -41,7 +41,7 @@ app.config['SECRET_KEY'] = 'hardtoguessstring'
 # * A submit button
 
 class AlbumEntryForm(FlaskForm):
-    albumname = StringField('Enter the name of an album!: ', validators=[Required()])
+    albumname = StringField('Enter the name of an album! ', validators=[Required()])
     like = RadioField('How much do you like this album? (1 low, 3 high)', choices=[('1','1'),('2','2'),('3','3')],validators=[Required()])
     submit = SubmitField('Submit')
 
@@ -90,10 +90,15 @@ def specificsongfunc(artist_name):
 @app.route('/album_entry')
 def entryfunc():
     entryform = AlbumEntryForm()
-    return render_template('album_entry.html', form=entryForm)
+    return render_template('album_entry.html', form=entryform)
 
-@app.route('/album_result')
+@app.route('/album_result', methods = ['GET', 'POST'])
 def resultfunc():
+    form = AlbumEntryForm()
+    if request.method == 'POST' and form.validate_on_submit(): #form has to validate in order for this to work
+        final = form.albumname.data
+        number = form.like.data
+        return render_template('album_data.html', albumname=final, like=number)
 
 
 # **Then, add 2 more routes to the application:**
