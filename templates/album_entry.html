@@ -1,0 +1,15 @@
+
+{% block content %}
+
+<h1>  Enter the name of an album: <h1/> <br>
+  <form action="http://localhost:5000/album_result" method="POST">
+    {{ form.hidden_tag() }}
+    {% for message in get_flashed_messages() %}
+    {{ message }}
+    {% endfor %}
+      <h3>{{ form.albumname.label }} : {{ form.albumname() }}</h3>
+      <h3>{{ form.like.label }} : {{ form.like() }}</h3>
+      {{ form.submit() }}
+</form>
+
+{% endblock %}

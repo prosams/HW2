@@ -33,21 +33,21 @@ app.config['SECRET_KEY'] = 'hardtoguessstring'
 ###### FORMS #######
 ####################
 
+# **Add a form to the application in `SI364W18_HW2.py`, using `WTForms` syntax. The class name should be `AlbumEntryForm`.**
+# The `AlbumEntryForm` should have the following fields:
+#
+# * Text entry for an album name, whose label should be `Enter the name of an album:`, which should be **required**
+# * Radio buttons with options: 1,2,3 -- representing how much the user likes the album, whose label should be: `How much do you like this album? (1 low, 3 high)`, which should be **required**
+# * A submit button
 
-
+class AlbumEntryForm(FlaskForm):
+    albumname = StringField('Enter the name of an album!: ', validators=[Required()])
+    like = RadioField('How much do you like this album? (1 low, 3 high)', choices=[('1','1'),('2','2'),('3','3')],validators=[Required()])
+    submit = SubmitField('Submit')
 
 ####################
 ###### ROUTES ######
 ####################
-
-## Edit the `SI364_HW3.py` file inside the `HW3Part1` directory to add routes to
-## the basic Flask application that will match the **provided** templates in the
-## `templates` subdirectory inside the `HW3Part1` folder.
-#
-# * `http://localhost:5000/artistform` -> `artistform.html`
-# * `http://localhost:5000/artistinfo` -> `artist_info.html`
-# * `http://localhost:5000/artistlinks` -> `artist_links.html`
-# * `http://localhost:5000/specific/song/<artist_name>` -> `specific_artist.html`
 
 @app.route('/')
 def hello_world():
@@ -87,8 +87,25 @@ def specificsongfunc(artist_name):
     # print(final)
     return render_template('specific_artist.html', results=final)
 
+@app.route('/album_entry')
+def entryfunc():
+    entryform = AlbumEntryForm()
+    return render_template('album_entry.html', form=entryForm)
+
+@app.route('/album_result')
+def resultfunc():
 
 
+# **Then, add 2 more routes to the application:**
+#
+# * `/album_entry`, which should render the WTForm you just created (note that there is a raw HTML form in
+# one of the provided templates, but THIS should rely on your WTForms form). It should send data to a
+# template called `album_entry.html` (see Part 3). The form should look pretty much [like this]
+# (https://www.dropbox.com/s/6mvt6d4b929vu0n/Screenshot%202018-01-15%2016.10.09.png?dl=0) **when you are done with Part 3.**
+
+# * `/album_result`, which should render the results of what was submitted to the
+# `AlbumEntryForm`, [like this](https://www.dropbox.com/s/vqi7ybmkdh7ca1q/Screenshot%202018-01-15%2016.07.38.png?dl=0)
+# **when you are done with Part 3.** It should send data to a template called `album_data.html` (see Part 3).
 
 
 if __name__ == '__main__':
